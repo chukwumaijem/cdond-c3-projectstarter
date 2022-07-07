@@ -18,7 +18,7 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            SUCCESS=$(curl --insecure https://kvdb.io/Y8Ps66Q1uYkxznVMmP8cHi/migration_${CIRCLE_WORKFLOW_ID:0:7})
+            SUCCESS=$(curl https://kvdb.io/Y8Ps66Q1uYkxznVMmP8cHi/migration_${CIRCLE_WORKFLOW_ID:0:7})
             if (( $SUCCESS == 1 ));
             then
               cd ~/project/backend
@@ -195,6 +195,7 @@ jobs:
           command: |
             cd backend
             npm install
+            npm run migrations:revert
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
       - run:
@@ -213,8 +214,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install tar, gzip, curl
+          name: Install sudo, tar, gzip, curl
           command: |
+            yum install sudo -y
             yum -y install tar gzip
             yum makecache
             yum install curl.x86_64
@@ -222,8 +224,8 @@ jobs:
           name: Install Nodejs and NPM
           command: |
             yum install -y gcc-c++ make
-            curl -sL https://rpm.nodesource.com/setup_13.x | -E bash -
-            yum install -y nodejs
+            curl -sL https://rpm.nodesource.com/setup_13.x |sudo -E bash -
+            sudo yum install -y nodejs
       - attach_workspace:
           at: ~/tmp
       - run:
