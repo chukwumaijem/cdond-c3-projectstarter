@@ -156,10 +156,16 @@ jobs:
           command: |
             apk add --update ansible
       - run:
+          name: Create inventory
+          command: |
+            touch ~/inventory.txt
+            echo "[web]" > inventory.txt
+            echo "3.82.244.81" >> inventory.txt
+      - run:
           name: Configure server
           command: |
             cd .circleci/ansible
-            ansible-playbook -i ~/tmp/project/.circleci/ansible/inventory.txt configure-server.yml
+            ansible-playbook -i ~/inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure
 
 workflows:
