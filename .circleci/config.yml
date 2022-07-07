@@ -155,6 +155,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update ansible
+            apk add --update openssh-server # Install openssh-server
       - run:
           name: Create inventory
           command: |
@@ -165,7 +166,7 @@ jobs:
           name: Configure server
           command: |
             cd .circleci/ansible
-            ansible-playbook -i ~/inventory.txt configure-server.yml --private-key udacity.pem
+            ansible-playbook -i ~/inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure
 
 workflows:
@@ -188,4 +189,4 @@ workflows:
       #       branches:
       #         only: [master]
       - configure-infrastructure
-          # requires: [deploy-infrastructure]
+        # requires: [deploy-infrastructure]
