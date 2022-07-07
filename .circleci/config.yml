@@ -159,8 +159,8 @@ jobs:
           name: Create inventory
           command: |
             touch ~/inventory.txt
-            echo "[web]" > inventory.txt
-            echo "3.82.244.81" >> inventory.txt
+            echo "[web]" > ~/inventory.txt
+            echo "3.82.244.81" >> ~/inventory.txt
             ls
       - run:
           name: Configure server
