@@ -12,9 +12,9 @@
     - ansible_stdout_callback: yaml
 
   pre_tasks:
-    - name: "Wait 2 minutes for target connection to become reachable/usable."
+    - name: "Wait one and a half minutes for target connection to become reachable/usable."
       ansible.builtin.pause:
-        minutes: 2
+        seconds: 90
 
     - name: "Install Python for Ansible."
       become: true

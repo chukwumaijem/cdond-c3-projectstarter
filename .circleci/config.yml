@@ -201,7 +201,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl https://kvdb.io/Y8Ps66Q1uYkxznVMmP8cHi/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl https://kvdb.io/Y8Ps66Q1uYkxznVMmP8cHi/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
       - revert-migrations
       - destroy-environment
@@ -214,9 +214,17 @@ jobs:
       - attach_workspace:
           at: ~/tmp
       - run:
-          name: Install dependencies
+          name: Install tar, gzip, curl
           command: |
             yum -y install tar gzip
+            yum makecache
+            yum install curl.x86_64
+      - run:
+          name: Install Nodejs and NPM
+          command: |
+            yum install -y gcc-c++ make
+            curl -sL https://rpm.nodesource.com/setup_13.x | sudo -E bash -
+            yum install -y nodejs
       - run:
           name: Get backend url
           command: |
@@ -252,7 +260,8 @@ jobs:
           command: |
             apk add --update ansible
             apk add --update openssh-server
-            apk add --no-cache tar gzip
+            apk add --no-cache tar gzip curl
+            apk add --update nodejs npm
       - run:
           name: Deploy backend
           command: |
