@@ -111,7 +111,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install tar abd gzip
+          name: Install tar and gzip
           command: |
             yum -y install tar gzip
       - run:
@@ -142,6 +142,28 @@ jobs:
             - project/.circleci/ansible/inventory.txt
       - destroy-environment
 
+  configure-infrastructure:
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["45:0f:9e:08:e2:98:36:ee:0b:b1:6d:58:d3:fb:35:8b"]
+      - attach_workspace:
+          at: ~/tmp
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update ansible
+      - run:
+          name: Configure server
+          command: |
+            ls
+            ls ~/tmp/
+            cd .circleci/ansible
+            ansible-playbook -i ~/tmp/inventory.txt configure-server.yml
+      # Here's where you will add some code to rollback on failure
+
 workflows:
   default:
     jobs:
@@ -158,6 +180,8 @@ workflows:
       - deploy-infrastructure:
           # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           requires: [build-frontend, build-backend]
-          # filters:
-          #   branches:
-          #     only: [test-feature-branch]
+          filters:
+            branches:
+              only: [master]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]

@@ -1,0 +1,33 @@
+---
+- name: "Configure Server."
+  become: true
+  apt:
+    update_cache: yes
+    upgrade: yes
+
+- name: "Update Repository"
+  become: true
+  apt:
+    install: software-properties-common
+  add-apt-repository:
+    repo: ppa:deadsnakes/ppa
+
+- name: "Install Python"
+  become: true
+  apt:
+    install: python3.8
+
+- name: "Install Node and NPM."
+  become: true
+  apt:
+    name: ["nodejs", "npm"]
+    state: latest
+    update_cache: yes
+
+- name: "Install PM2."
+  become: true
+  npm:
+    name: pm2
+    global: yes
+    production: yes
+    state: present
