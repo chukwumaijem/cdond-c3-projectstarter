@@ -184,7 +184,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys: [backend-build]
+          keys: [backend-build]
       - run:
           name: Run migrations
           command: |
@@ -286,7 +286,7 @@ workflows:
             branches:
               only: [master]
       - configure-infrastructure:
-        requires: [deploy-infrastructure]
+          requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
       - deploy-frontend:
