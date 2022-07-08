@@ -22,15 +22,12 @@
 - name: "Install Dependencies"
   become: true
   shell: |
-    tar -xvf artifact.tar.gz --directory web
+    tar -xvf artifact.tar.gz .
     rm artifact.tar.gz
-    ls
-    cd web
-    ls
     npm install
 
 - name: "Start Server"
   become: true
   shell: |
     sudo pm2 stop default
-    sudo pm2 start npm -- run start:prod
+    sudo pm2 start npm -- run start
