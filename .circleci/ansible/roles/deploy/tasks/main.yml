@@ -5,9 +5,10 @@
     state: directory
 
 - name: "Copy files to server"
-  template:
+  ansible.builtin.copy:
     src: "files/artifact.tar.gz"
     dest: "$HOME/artifact.tar.gz"
+    follow: yes
 
 - name: "install dependencies."
   become: true
