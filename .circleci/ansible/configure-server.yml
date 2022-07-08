@@ -12,7 +12,7 @@
     - ansible_stdout_callback: yaml
 
   pre_tasks:
-    - name: "Wait one and a half minutes for target connection to become reachable/usable."
+    - name: "Wait a minute and half for host to become reachable/usable."
       ansible.builtin.pause:
         seconds: 90
 

@@ -22,9 +22,11 @@
 - name: "Install Dependencies"
   become: true
   shell: |
-    tar -xvf artifact.tar.gz web
+    tar -xvf artifact.tar.gz --directory web
+    rm artifact.tar.gz
     ls
     cd web
+    ls
     npm install
 
 - name: "Start Server"
