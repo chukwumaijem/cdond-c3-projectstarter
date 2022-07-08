@@ -32,5 +32,5 @@
 - name: "Start Server"
   become: true
   shell: |
-    pm2 stop default
-    pm2 start npm -- start:prod
+    sudo pm2 stop default
+    sudo pm2 start npm -- run start:prod
