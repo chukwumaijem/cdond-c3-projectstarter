@@ -282,8 +282,6 @@ jobs:
             mkdir -m 755 .circleci/ansible/roles/deploy/files/
             cp artifact.tar.gz  .circleci/ansible/roles/deploy/files/
             cd .circleci/ansible
-            echo "Contents  of the inventory.txt file is -------"
-            cat ~/tmp/project/.circleci/ansible/inventory.txt
             ansible-playbook -i ~/tmp/project/.circleci/ansible/inventory.txt deploy-backend.yml
       - revert-migrations
       - destroy-environment
