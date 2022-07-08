@@ -171,6 +171,8 @@ jobs:
           command: |
             apk add --update ansible
             apk add --update openssh-server
+            apk --no-cache add --virtual builds-deps build-base python3
+            pip install --upgrade pip && pip install --upgrade awscli
       - run:
           name: Configure server
           command: |
@@ -195,7 +197,6 @@ jobs:
           command: |
             cd backend
             npm install
-            npm run migrations:revert
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
       - run:
@@ -266,9 +267,8 @@ jobs:
             apk add --no-cache tar gzip curl
             apk add --update nodejs npm
             apk add --update nodejs npm
-            curl -sL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-            unzip awscliv2.zip
-            aws/install
+            apk --no-cache add --virtual builds-deps build-base python3
+            pip install --upgrade pip && pip install --upgrade awscli
       - run:
           name: Deploy backend
           command: |
