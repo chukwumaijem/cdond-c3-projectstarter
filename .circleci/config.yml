@@ -3,7 +3,18 @@ version: 2.1
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+    parameters:
+      s3-created:
+        default: 1
+        type: integer
     steps:
+      - run:
+          name: Delete Content of S3 Bucket
+          command: |
+            if ((<<parameters.s3-created == 1>>))
+            then
+              aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+            fi
       - run:
           name: Destroy environments
           when: on_fail
@@ -325,8 +336,8 @@ jobs:
             else
               return 1
             fi
-      - revert-migrations
-      - destroy-environment
+      # - revert-migrations
+      # - destroy-environment
 
 workflows:
   default:
