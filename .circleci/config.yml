@@ -164,7 +164,7 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
       - destroy-environment:
-          - uploaded: 0
+          uploaded: 0
 
   configure-infrastructure:
     docker:
@@ -188,7 +188,7 @@ jobs:
             cd .circleci/ansible
             ansible-playbook -i ~/tmp/project/.circleci/ansible/inventory.txt configure-server.yml
       - destroy-environment:
-          - uploaded: 0
+          uploaded: 0
 
   run-migrations:
     docker:
@@ -218,7 +218,7 @@ jobs:
             fi
       - revert-migrations
       - destroy-environment:
-          - uploaded: 0
+          uploaded: 0
 
   deploy-frontend:
     docker:
