@@ -7,6 +7,7 @@
 - name: "move binary to /usr/local/bin."
   become: true
   shell: |
+    sudo useradd --no-create-home node_exporter
     sudo cp node_exporter-1.0.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
     rm -rf node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-1.0.1.linux-amd64
 
@@ -14,11 +15,11 @@
   become: true
   copy:
     src: node_exporter.service
-    dest: /etc/systemd/system/
+    dest: /etc/systemd/system/node-exporter.service
 
 - name: "enable node_exporter service"
   become: true
   shell: |
     sudo systemctl daemon-reload
-    sudo systemctl enable node_exporter
-    sudo systemctl start node_exporter
+    sudo systemctl enable node-exporter
+    sudo systemctl start node-exporter
