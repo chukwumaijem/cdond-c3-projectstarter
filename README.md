@@ -69,5 +69,6 @@ Before you submit your project, please check your work against the project rubri
 
 [URL01] = https://github.com/chukwumaijem/cdond-c3-projectstarter
 [URL02] = http://udapeople-7267af8.s3-website-us-east-1.amazonaws.com
+[URL02] = http://d2yov1dg1qboni.cloudfront.net
 
 PS: Update URL02 Before submission
