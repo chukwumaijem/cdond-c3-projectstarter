@@ -315,9 +315,11 @@ jobs:
               --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}" >> ip.txt
       - run:
           name: Backend smoke test.
           command: |
+            export API_URL="$(cat ip.txt)"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
             then
@@ -336,8 +338,8 @@ jobs:
             else
               return 1
             fi
-      # - revert-migrations
-      # - destroy-environment
+      - revert-migrations
+      - destroy-environment
 
 workflows:
   default:
