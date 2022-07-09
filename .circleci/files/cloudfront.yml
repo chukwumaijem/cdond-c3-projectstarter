@@ -31,14 +31,8 @@ Resources:
           ViewerProtocolPolicy: allow-all
 
 Outputs:
-  OldWorkflowID:
-    Value:
-      Fn::ImportValue: "WorkflowID"
-    Description: Set existing workflow id as old workflow id
-    Export:
-      Name: OldWorkflowID
   WorkflowID:
     Value: !Sub ${WorkflowID}
-    Description: Set current workflow id as workflow id
+    Description: URL for website hosted on S3
     Export:
       Name: WorkflowID
