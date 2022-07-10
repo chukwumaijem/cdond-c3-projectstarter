@@ -1,2 +1,3 @@
 [URL01] = https://github.com/chukwumaijem/udapeople
-[URL02] = http://udapeople-0f0805d.s3-website-us-east-1.amazonaws.com
+[URL02] S3 = http://udapeople-0f0805d.s3-website-us-east-1.amazonaws.com
+[URL02] Cloudfront = http://d2yov1dg1qboni.cloudfront.net	
