@@ -308,5 +308,4 @@ masterPassword=EXp6yXDVkzcBP1GRvmXp
 database=myProjectDatabase
 
 
-aws cloudformation deploy --template-file cloudfront.yml --stack-name InitialStack --parameter-overrides WorkflowID=030041582156
-
+aws cloudformation deploy --template-file cloudfront.yml --stack-name InitialStack --parameter-overrides WorkflowID=udapeople-030041582156
